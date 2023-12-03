@@ -78,7 +78,7 @@ export class AuthService {
   }
 
   signToken(user: User): Promise<string> {
-    const payload = {
+    const payload: JwtPayload = {
       sub: user.username,
     };
 
