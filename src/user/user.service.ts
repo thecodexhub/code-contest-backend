@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatasourceService } from '../datasource/datasource.service';
 import { User as UserEntity } from './enitities/user.entity';
 import { Prisma } from '@prisma/client';
+import { UpdateUserDto } from './dtos';
 
 @Injectable()
 export class UserService {
@@ -22,6 +23,21 @@ export class UserService {
       return new UserEntity(user);
     }
     return null;
+  }
+
+  async updateUser(id: string, data: UpdateUserDto): Promise<UserEntity> {
+    const user = await this.datasource.user.findUnique({ where: { id } });
+
+    if (!user) {
+      throw new NotFoundException(`There isn't any user with id: ${id}`);
+    }
+
+    const updatedUser = await this.datasource.user.update({
+      where: { id },
+      data: data,
+    });
+
+    return new UserEntity(updatedUser);
   }
 
   async updateLastLogin(id: string): Promise<UserEntity> {
