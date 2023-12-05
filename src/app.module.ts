@@ -5,6 +5,9 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { UserModule } from './user/user.module';
 import { DatasourceExceptionFilter } from './datasource/exceptions';
+import { TerminusModule } from '@nestjs/terminus';
+import { HealthController } from './health.controller';
+import { PrismaClient } from '@prisma/client';
 
 @Module({
   imports: [
@@ -12,6 +15,8 @@ import { DatasourceExceptionFilter } from './datasource/exceptions';
     AuthModule,
     DatasourceModule,
     UserModule,
+    TerminusModule,
+    PrismaClient,
   ],
   providers: [
     {
@@ -23,5 +28,6 @@ import { DatasourceExceptionFilter } from './datasource/exceptions';
       useClass: DatasourceExceptionFilter,
     },
   ],
+  controllers: [HealthController],
 })
 export class AppModule {}
