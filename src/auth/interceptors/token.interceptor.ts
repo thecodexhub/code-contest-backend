@@ -5,7 +5,7 @@ import {
   NestInterceptor,
 } from '@nestjs/common';
 import { Observable, concatMap } from 'rxjs';
-import { User } from '../../user/enitities/user.entity';
+import { User } from '../../user/entities/user.entity';
 import { AuthService } from '../auth.service';
 import { Response } from 'express';
 

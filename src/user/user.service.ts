@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatasourceService } from '../datasource/datasource.service';
-import { User as UserEntity } from './enitities/user.entity';
+import { User as UserEntity } from './entities/user.entity';
 import { Prisma } from '@prisma/client';
 import { UpdateUserDto } from './dtos';
 

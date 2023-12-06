@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { RegisterUserDto, SigninUserDto } from './dtos';
 import { UserService } from '../user/user.service';
-import { User } from '../user/enitities/user.entity';
+import { User } from '../user/entities/user.entity';
 import { JwtPayload } from './interfaces/jwt-payload.interface';
 import { JwtService } from '@nestjs/jwt';
 

@@ -12,7 +12,7 @@ import {
 import { AuthService } from './auth.service';
 import { RegisterUserDto, SigninUserDto } from './dtos';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-import { User } from '../user/enitities/user.entity';
+import { User } from '../user/entities/user.entity';
 import { CurrentUser } from '../user/decorators/current-user.decorator';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 

@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserService } from './user.service';
-import { User } from './enitities/user.entity';
+import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dtos';
 
 @Controller('user')
