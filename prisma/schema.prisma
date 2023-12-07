@@ -21,6 +21,19 @@ model User {
   updatedAt DateTime  @updatedAt @map("updated_at")
   lastLogin DateTime? @map("last_login")
   isActive  Boolean   @default(true) @map("is_active")
+  snippets  Snippet[] @relation("SnippetCreatedBy")
+}
+
+model Snippet {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  title     String
+  code      String
+  language  String
+  tags      String[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation("SnippetCreatedBy", fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Role {
