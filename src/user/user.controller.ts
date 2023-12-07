@@ -15,12 +15,30 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UserService } from './user.service';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dtos';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { SnippetService } from '../snippet/snippet.service';
 
 @Controller('user')
-@UseGuards(JwtAuthGuard)
 @UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly snippetService: SnippetService,
+  ) {}
+
+  @Get('me')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
+  me(@CurrentUser() user: User): User {
+    return user;
+  }
+
+  @Get('/me/snippets')
+  @HttpCode(HttpStatus.OK)
+  @UseGuards(JwtAuthGuard)
+  fetchAllSnippetsByMe(@CurrentUser() user: User) {
+    return this.snippetService.fetchAllSnippetsByUserId(user.id);
+  }
 
   @Get(':id')
   @HttpCode(HttpStatus.OK)
@@ -28,7 +46,14 @@ export class UserController {
     return this.userService.findUnique({ where: { id } });
   }
 
+  @Get('/:id/snippets')
+  @HttpCode(HttpStatus.OK)
+  fetchAllSnippetsByUserId(@Param('id', new ParseUUIDPipe()) userId: string) {
+    return this.snippetService.fetchAllSnippetsByUserId(userId);
+  }
+
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() userUpdates: UpdateUserDto,

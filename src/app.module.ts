@@ -8,6 +8,7 @@ import { DatasourceExceptionFilter } from './datasource/exceptions';
 import { TerminusModule } from '@nestjs/terminus';
 import { HealthController } from './health.controller';
 import { PrismaClient } from '@prisma/client';
+import { SnippetModule } from './snippet/snippet.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PrismaClient } from '@prisma/client';
     UserModule,
     TerminusModule,
     PrismaClient,
+    SnippetModule,
   ],
   providers: [
     {
