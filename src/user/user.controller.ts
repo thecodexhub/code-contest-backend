@@ -8,6 +8,7 @@ import {
   Param,
   ParseUUIDPipe,
   Put,
+  Query,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -25,6 +26,14 @@ export class UserController {
     private readonly userService: UserService,
     private readonly snippetService: SnippetService,
   ) {}
+
+  @Get('username')
+  @HttpCode(HttpStatus.OK)
+  async isUsernameAvailable(@Query('username') username: string) {
+    const isUsernameAvailable =
+      await this.userService.isUsernameAvailable(username);
+    return { isUsernameAvailable };
+  }
 
   @Get('me')
   @HttpCode(HttpStatus.OK)

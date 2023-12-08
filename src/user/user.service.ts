@@ -8,6 +8,11 @@ import { UpdateUserDto } from './dtos';
 export class UserService {
   constructor(private readonly datasource: DatasourceService) {}
 
+  async isUsernameAvailable(username: string): Promise<boolean> {
+    const user = await this.datasource.user.findUnique({ where: { username } });
+    return !user;
+  }
+
   async create(userToCreate: UserEntity): Promise<UserEntity> {
     const user = await this.datasource.user.create({
       data: userToCreate,
